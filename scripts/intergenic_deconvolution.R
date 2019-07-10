@@ -35,7 +35,7 @@ if (!exists("species_id")){ stop("species_id not defined") }
 #####################################################################
 
 ## write header of file gaussian_choice_by_species.txt
-cat("numberGaussiansIntergenic\tselectedGaussianIntergenic\tselectionSideIntergenic\tcomment\n", file = file.path(output_dir_path, "gaussian_choice.txt"), sep = "\t")
+cat("numberGaussiansIntergenic\tselectedGaussianIntergenic\tselectionSideIntergenic\tcomment\n", file = file.path(output_dir_path, "gaussian_choice.tsv"), sep = "\t")
 
 ## Deconvolute TPM intergenic and genic distributions
 ## As in Hebenstreit 2011 Mol Syst Biol: use clustering approach

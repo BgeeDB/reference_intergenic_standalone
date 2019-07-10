@@ -47,15 +47,12 @@ R CMD BATCH --no-save --no-restore '--args annotation_file_path="../output/custo
 R CMD BATCH --no-save --no-restore '--args annotation_file_path="../output/custom_annotation.gtf" abundance_kallisto_file_path="../input/SRX331967/abundance.tsv" abundance_gene_level_dir_path="../input/SRX331967/"' summarize_gene_level.R summarize_gene_level.Rout
 
 ## 7. Sum by species
-# run in the script folder
 R CMD BATCH --no-save --no-restore '--args rna_seq_sample_excluded="../input/not_wanted_lib.tsv" all_libraries_folder="../input" sum_by_species_folder="../output" species_id=7227' sum_by_species.R sum_by_species.Rout
 
 ## 8. Deconvolution of intergenic gaussians
-# 
 R CMD BATCH --no-save --no-restore '--args sum_by_species_file_path="../output/summed_abundance_7227.tsv" output_dir_path="../output" species_id=7227' intergenic_deconvolution.R intergenic_deconvolution.Rout
 
 ## 9. manually modify ../output/gaussian_choice.tsv file
 
 ## 10. Generate reference and/or non-reference intergenic sequences 
-# sun in the script folder
 R CMD BATCH --no-save --no-restore '--args species_id=7227 sum_and_classification_file_path="../output/summed_abundance_7227.tsv" gaussian_choice_file_path="../output" transcriptome_file_path="" output_dir_path="../output/"' generate_intergenic.R generated_intergenic.Rout

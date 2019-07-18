@@ -142,6 +142,8 @@ Practically this step allows to define a deconvoluted gaussian number, and the s
 <b>output : </b> gaussian number and side of the gaussian used as threshold  
 <b>example : </b>  
 
+![alt text](./img/density_plot_gaussian_choice.png)
+
 This density plot was generated using 14 RNA-Seq libraries of D. melanogaster. Mclust deconvoluted 3 intergenic gaussians. We now need to select which of these gaussians will be used to generate reference intergenic sequences. We decided to <b>keep as reference all intergenic sequences part of gaussian 1 and 2</b>. In order to do that we have to fill the gaussian_choice.tsv file created in the previous step. For the column <b>numberGaussiansIntergenic</b> we write <b>3</b>. For the column <b>selectedGaussianIntergenic</b> we write <b>2</b> and for the column <b>selectionSideIntergenic</b> we write <b>Left</b> meaning that the second deconvoluted gaussian will be at the left of our cutoff (see vertical red line). The last column, called comment should be filled in with the explanation of your gaussian choice (e.g Gaussian 3 intergenic very small and on the right: removed)
 
 # 10. Generate reference intergenic sequences

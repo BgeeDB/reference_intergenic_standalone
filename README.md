@@ -160,7 +160,56 @@ R CMD BATCH --no-save --no-restore '--args species_id=species_id sum_and_classif
 
 # 11. Share your reference intergenic sequences (Work in progress)
 
-Now that the reference intergenic sequences file was created it is possible to use it to generate present/absent gene expression calls with BgeeCall.  
-As a member of the Bgee community, it is gratifying to let other members be aware of your work. It can even be better to allow the community to reuse your intergenic sequences. The Bgee team is currently testing different public dataset repositories (Zenodo, figshare, ...) in order to easily publish and retrieve the sequences. 
+Now that the reference intergenic sequences file was created it is possible to use it to generate present/absent gene expression calls with BgeeCall. 
+As a member of the community, it is gratifying to let other members be aware of your work. It can even be better to allow the community to reuse your intergenic sequences.
+BgeeCall allows to automatically reuse reference intergenic sequences created by community members and shared in Zenodo.  
+We choose Zenodo because it is free to use, datasets are stored safely for the future, a REST API allows to programmatically retrieve datasets, and datasets are associated to a DOI to make them easily and uniquely citeable.  
+Sharing a dataset in Zenodo is extremely easy. However, in order to allow BgeeCall to reuse your sequences please <b>follow precisely the steps described below</b>. If we do not provide any rules for a field of the Zenodo submission form it means you can provide the information you want (e.g., title, description, authors, funding). You will need a Zenodo account, which can be set up at [zenodo.org](https://zenodo.org/signup/).
+
+## a) Upload files
+
+Once you are connected to your Zenodo account, start uploading a new record (Zenodo terminology for a dataset) by clicking on the `Upload` menu and then on the green button `new upload`. You will then access the upload form.  
+The first step consists of selecting files to upload. It is an important step as you will not be able to add/modify files once you submitted your record. Please provide 4 files with exactly these names:
+- ref_intergenic.fa.gz: compressed fasta file containing all the reference intergenic sequences
+- sum_abundance_gene_classification.tsv: tsv file created during step 8, containing summed gene expression level and deconvoluted gaussian numbers (column called classification). 
+- distribution_TPM_sum_deconvolution.pdf: PDF created during step 8 containing density plot showing deconvoluted gaussians of the intergenic sequences 
+- gaussian_choice.tsv: TSV file manually filled in the step 9.
+- other_intergenic.fa.gz: (optional) compressed fasta file containing all the intergenic sequences not considered as reference.
+
+Do not forget to click on the “start upload” green button once you have added all the files.
+
+## b) Select the Bgee community
+
+BgeeCall only use Zenodo records part of the Bgee community. In order for your record to be part of the Bgee community please write “Bgee intergenic” as a community name and select this community.
+Being part of the community is not immediate, as the Bgee team does a small manual validation. We try to do this as fast as possible; if there is a large delay (more than a week), please contact us at bgee@sib.swiss.
+
+## c) Basic information
+
+For the moment Zenodo do not allows to use key/value metadata. We decided to create our own key/value metadata separated by a colon using the keywords field. Keywords described below are used to automatically retrieve dataset in BgeeCall. They are all mandatory:
+speciesId:integer: where integer corresponds to the NCBI species ID used to generate the reference intergenic sequences.
+numberOfLibraries:integer: where integer corresponds to the number of libraries used to generate the reference intergenic sequences.
+genomeVersion:string: where string corresponds to the genome version used to generate the reference intergenic sequences.
+annotationVersion:string: where string corresponds to the genome annotation version used to generate the reference intergenic sequences.
+kallistoVersion:string: where string corresponds to the version of kallisto (e.g 0.46.0) used to generate the reference intergenic sequences.
+
+![alt text](./img/keywords_new_record.png)
+<i>Example of submission of a record for D. melanogaster. 259 RNA-Seq libraries were used to generate the reference intergenic sequences using reference genome BDGP6, genome annotation BDGP6 from ensembl 95, and kallisto 0.45.</i>
+
+## d) Licence
+
+Please create your record as Open Access. Otherwise BgeeCall and members of the Bgee community will not be able to access it. 
+All reference intergenic sequences created by the Bgee team follow the CC0 licence. We recommend following the same practice, as it respects the cultural norm of citation among scientists without adding extra complexity to future steps of data integration (see e.g. [discussion at creative commons](https://wiki.creativecommons.org/wiki/CC0_use_for_data)).
+
+## e) Wait for the validation of your record
+
+Once your record is submitted, you will directly have access to its URL and you will be able to access it. However it will not be directly accepted as part of the Bgee community. Bgee curators will first validate:
+- deconvoluted intergenic gaussians, 
+- selected reference intergenic gaussians,
+- name of the files,
+- number of libraries,
+- keywords.  
+
+Congratulations, the reference intergenic dataset of your favorite species can now be used in BgeeCall and is associated to a permanent DOI. Do not hesitate to advertise this in your presentations and papers, and on social media, for maximal usefulness.
+
 
 

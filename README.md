@@ -22,12 +22,12 @@ Before starting the generation of reference intergenic regions it is important t
 Of course you will also need :
 * the genome annotation (GTF file from Ensembl or similar)
 * the genome sequence (FASTA file)
-* your reads (FASTQ files)
+* your RNA-Seq libraries (FASTQ files)
 
 # 2. Generate custom GTF file
 
 Detects a set of regions in the genome without annotations in the GTF file. These regions, called “intergenic regions” will be added to the original gene annotations in a custom GTF file and are defined following these rules :
-* at least 500 bp from any gene annotation;
+* at least 500 bp far from any gene annotation;
 * at least 1000 bp long;
 * if longer than 20 kb only keep 10 kb from each side of the middle of the region;
 * no long blocks of Ns (we recommend a limit of 100 bp of consecutive Ns), nor sequences containing more than a certain proportion of Ns (we recommend a limit of 5% of Ns).

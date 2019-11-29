@@ -30,7 +30,7 @@ Detects a set of regions in the genome without annotations in the GTF file. Thes
 * at least 500 bp far from any gene annotation;
 * at least 1000 bp long;
 * if longer than 20 kb only keep 10 kb from each side of the middle of the region;
-* no long blocks of Ns (we recommend a limit of 100 bp of consecutive Ns), nor sequences containing more than a certain proportion of Ns (we recommend a limit of 5% of Ns).
+* no long blocks of Ns (we recommend a limit of 31 bp of consecutive Ns), nor sequences containing more than a certain proportion of Ns (we recommend a limit of 5% of Ns).
 
 <b>inputs : </b> annotation, genome, N blocks size, max proportion of N, output dir  
 <b>output : </b> custom GTF with intergenic regions  

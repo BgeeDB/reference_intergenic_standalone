@@ -158,7 +158,7 @@ In this step it is also possible to generate non reference intergenic sequences.
 R CMD BATCH --no-save --no-restore '--args species_id=species_id sum_and_classification_file_path="path/to/sum/classification/file.tsv" gaussian_choice_file_path="path/to/gaussian_choice.tsv" transcriptome_file_path="/path/to/custom_transcriptome.fa" output_dir_path="/output/dir/"' generate_intergenic.R generated_intergenic.Rout
 ```
 
-# 11. Share your reference intergenic sequences (Work in progress)
+# 11. Share your reference intergenic sequences
 
 Now that the reference intergenic sequences file was created it is possible to use it to generate present/absent gene expression calls with BgeeCall. 
 As a member of the community, it is gratifying to let other members be aware of your work. It can even be better to allow the community to reuse your intergenic sequences.

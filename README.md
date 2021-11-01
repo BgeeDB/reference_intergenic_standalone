@@ -36,7 +36,7 @@ Detects a set of regions in the genome without annotations in the GTF file. Thes
 <b>output : </b> custom GTF with intergenic regions  
 <b>command line :</b>  
 ```
-R CMD BATCH --vanilla '--args gene_gtf_path="path/to/gtf_file.gtf" genome_fasta_path="path/to/genome_file.fa" N_block_size=100 N_proportion=0.05 output_gtf_file_path="path/to/output/custom/gtf_file.gtf"' prepare_GTF.R prepare_GTF.Rout
+R CMD BATCH --vanilla '--args gene_gtf_path="path/to/gtf_file.gtf" genome_fasta_path="path/to/genome_file.fa" N_block_size=100 N_proportion=0.05 output_gtf_path="path/to/output/custom/gtf_file.gtf"' prepare_GTF.R prepare_GTF.Rout
 ```
 
 # 3. Generate custom transcriptome

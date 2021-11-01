@@ -5,6 +5,8 @@
 ## R CMD BATCH --no-save --no-restore '--args annotation_file_path="path/to/annotation.gtf" abundance_kallisto_file_path="path/to/abundance.tsv" abundance_gene_level_dir_path="path/to/output/dir"' summarize_gene_level.R summarize_gene_level.Rout
 ## annotation_file_path           - path to the annotation file
 ## abundance_kallisto_file_path   - path to the abundance.tsv file created by kallisto
+## tx2gene_file_path              - path to the tx2gene mapping file. This file was created during the prepare_GTF step and map a transcript_id to its gene_id
+## gene2biotype_file_path         - path to the gene2biotype mapping file. This file was created during the prepare_GTF step and map a gene_id to its biotype
 ## abundance_gene_level_dir_path  - path to the folder where the file containing the abundance summarized at gene level will be saved 
 ## ignore_tx_version              - (optional) Argument allowing to remove transcript version (e.g FBtr0306541.3 will become FBtr0306541)
 
@@ -28,49 +30,23 @@ if( length(cmd_args) == 0 ){ stop("no arguments provided\n") } else {
 ## checking if all necessarily arguments were provided properly
 if (!exists("annotation_file_path")){ stop("annotation_file_path not defined") }
 if (!exists("abundance_kallisto_file_path")){ stop("abundance_kallisto_file_path not defined") }
+if (!exists("tx2gene_file_path")){ stop("tx2gene_file_path not defined. This file has been generated in the prepare_GTF step") }
+if (!exists("gene2biotype_file_path")){ stop("gene2biotype_file_path not defined. This file has been generated in the prepare_GTF step") }
 if (!exists("abundance_gene_level_dir_path")){ stop("abundance_gene_level_dir_path not defined") }
 
-################################# Functions ###############################
-
-create_tx2gene <- function(annotation_file_path) {
-  txdb <- makeTxDbFromGFF(file = annotation_file_path)
-  k <- biomaRt::keys(txdb, keytype = "TXNAME")
-  tx2gene <- as.data.frame(biomaRt::select(txdb, k, "GENEID", "TXNAME"))
-  return(tx2gene)
-}
-
-create_gene2biotype <- function(annotation_file_path) {
-  column_names <- c("id", "biotype", "type")
-  annotation_object <- rtracklayer::import(annotation_file_path)
-  annotation_df = as.data.frame(annotation_object)
-  annotation_gene <- annotation_df[annotation_df$source != "intergenic",]
-  annotation_gene <- as.data.frame(unique(cbind(annotation_gene$gene_id, 
-                                              annotation_gene$gene_biotype)))
-  annotation_gene[, 3] <- "genic"
-  names(annotation_gene) <- column_names
-
-  annotation_intergenic <- annotation_df[annotation_df$source == "intergenic",]
-  annotation_intergenic <- as.data.frame(unique(cbind(annotation_intergenic$gene_id, 
-                                                    annotation_intergenic$gene_biotype)))
-  annotation_intergenic[, 3] <- "intergenic"
-  names(annotation_intergenic) <- column_names
-  gene_to_biotype <- rbind(annotation_gene, annotation_intergenic)
-  return(gene_to_biotype)
-}
-
-#######################################################################
 
 # detect if transcript version has to be removed
 ignoreTxVersion <- FALSE
 if (exists("ignore_tx_version")) {
   ignoreTxVersion <- TRUE
+  message("transcript version will be ignored.")
 }
 
 # generate mapping between transcript_id and gene_id
-tx2gene <- create_tx2gene(annotation_file_path)
+tx2gene <- read.table(tx2gene_file_path, sep="\t", header = TRUE)
 
 # generate the mapping between gene_id and biotype (also contains the type column)
-gene2biotype <- create_gene2biotype(annotation_file_path)
+gene2biotype <- read.table(gene2biotype_file_path, sep="\t", header = TRUE)
 
 
 # use tximport to generate the transcript to gene mapping

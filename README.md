@@ -211,6 +211,5 @@ Once your record is submitted, you will directly have access to its URL and you 
 
 Congratulations, the reference intergenic dataset of your favorite species can now be used in BgeeCall and is associated to a permanent DOI. Do not hesitate to advertise this in your presentations and papers, and on social media, for maximal usefulness.
 
->>>>>>> master
 
 
